@@ -65,10 +65,10 @@ st.markdown(
     f"""
     <div id="top" class="hero-wrap">
       <p class="hero-kicker">Machine Learning Case Study · Regresión (Análisis Conjoint)</p>
-      <h1 class="hero-title">Una aerolínea diseña vuelos con precio, escalas, equipaje y flexibilidad, pero no sabe cuánto vale cada extra para el cliente, ni si vale lo mismo para todos. Así es como lo averiguamos, <em>atributo por atributo</em>.</h1>
+      <h1 class="hero-title">Una aerolínea diseña vuelos con precio, escalas, equipaje y flexibilidad, pero no sabe cuánto vale cada extra para el cliente, ni si vale lo mismo para todos. Así es como lo averigüé, <em>atributo por atributo</em>.</h1>
       <p class="hero-sub">{n_fmt} clientes valoraron 24 combinaciones distintas de vuelo. Con una regresión sobre esas
-      {rows_fmt} valoraciones, descompusimos cada rating en el valor exacto que aporta cada característica —
-      y descubrimos que ese valor cambia por completo según quién compra el billete.</p>
+      {rows_fmt} valoraciones, descompuse cada rating en el valor exacto que aporta cada característica,
+      y descubrí que ese valor cambia por completo según quién compra el billete.</p>
       <div class="hero-meta">
         <span class="hero-pill">Borja Mora Méndez</span>
         <span class="hero-pill">Python · statsmodels (OLS)</span>
@@ -104,9 +104,9 @@ ui.question_block(
     "La pregunta de negocio",
     '¿Cuánto vale realmente cada característica de un vuelo para el cliente, '
     '<span class="accent">y es el mismo valor para todo el mundo</span>?',
-    "No basta con preguntar directamente \"¿cuánto te importa el precio?\" — la gente no siempre sabe "
-    "responder eso con precisión. Hay que observar cómo valora vuelos completos y descomponer esa "
-    "valoración, característica a característica.",
+    "No me bastaba con preguntar directamente \"¿cuánto te importa el precio?\": la gente no siempre "
+    "sabe responder eso con precisión. Tenía que observar cómo valora vuelos completos y descomponer "
+    "esa valoración, característica a característica.",
 )
 ui.section_close()
 
@@ -138,15 +138,15 @@ st.dataframe(attr_table, use_container_width=True, hide_index=True)
 
 n_combos = stats["n_combinaciones_factorial_completo"]
 ui.finding(
-    f"Combinar los 6 atributos con todos sus niveles daría <b>{n_combos} vuelos distintos</b> — "
-    "imposible pedirle a un cliente que valore tantos. Por eso se usa un <b>diseño ortogonal</b> "
+    f"Combinar los 6 atributos con todos sus niveles daría <b>{n_combos} vuelos distintos</b>: "
+    "imposible pedirle a un cliente que valore tantos. Por eso usé un <b>diseño ortogonal</b> "
     "(fractional factorial): un subconjunto de solo <b>24 tarjetas</b>, elegido estadísticamente para "
     "poder aislar el efecto de cada atributo por separado, sin perder esa capacidad de análisis."
 )
 same_design = "Sí" if stats["mismo_diseno_para_todos"] else "No"
 ui.body(
     f"Verificación técnica: <b>¿todos los clientes valoraron exactamente el mismo diseño de 24 tarjetas?</b> "
-    f"{same_design} — condición necesaria para poder comparar respuestas entre clientes con las mismas "
+    f"{same_design}. Condición necesaria para poder comparar respuestas entre clientes con las mismas "
     "reglas."
 )
 ui.section_close()
@@ -154,15 +154,16 @@ ui.section_close()
 # ============================================================ EXPLORACIÓN ==
 ui.section_open("exploracion")
 ui.eyebrow("Antes de modelar")
-ui.h2("¿Qué nos dicen las valoraciones?")
-ui.lead("Dos preguntas antes de descomponer nada: ¿cómo se reparten los ratings?, ¿puntúan igual los tres segmentos?")
+ui.h2("¿Qué me dicen las valoraciones?")
+ui.lead("Antes de descomponer nada, me hice dos preguntas: ¿cómo se reparten los ratings? ¿Puntúan "
+        "igual los tres segmentos?")
 
 ui.h3("Distribución de los ratings")
 st.plotly_chart(charts.rating_distribution(ratings_df["Rating"]), use_container_width=True,
                  config={"displayModeBar": False})
 mean_r = ratings_df["Rating"].mean()
 ui.finding(
-    f"La media de todas las valoraciones es {mean_r:.2f} sobre 10 — hay de todo, desde vuelos que "
+    f"La media de todas las valoraciones es {mean_r:.2f} sobre 10: hay de todo, desde vuelos que "
     "encantan hasta combinaciones que decepcionan. Esa variación es justo lo que el modelo necesita para "
     "poder aprender qué atributos la explican."
 )
@@ -171,7 +172,7 @@ ui.h3("¿Puntúan igual los tres segmentos?")
 st.plotly_chart(charts.rating_by_segment(ratings_df, SEGMENT_COLORS, SEGMENT_ORDER), use_container_width=True,
                  config={"displayModeBar": False})
 ui.finding(
-    "Las medianas son parecidas entre segmentos — la diferencia real no está en <i>cuánto puntúan</i> de "
+    "Las medianas son parecidas entre segmentos: la diferencia real no está en <i>cuánto puntúan</i> de "
     "media, sino en <i>qué</i> hace que puntúen alto o bajo. Eso solo se ve descomponiendo el rating por "
     "atributo, no mirando la distribución global."
 )
@@ -186,22 +187,22 @@ ui.lead(
     "lo hace útil."
 )
 ui.story_steps([
-    ("No preguntamos directamente",
-     "En vez de \"¿cuánto te importa el precio?\", se le muestra al cliente un vuelo completo — todos "
-     "sus atributos a la vez — y se le pide un rating global del 1 al 10."),
+    ("No pregunté directamente",
+     "En vez de \"¿cuánto te importa el precio?\", le mostré al cliente un vuelo completo (todos sus "
+     "atributos a la vez) y le pedí un rating global del 1 al 10."),
     ("Cada cliente valora las mismas 24 tarjetas",
      "El diseño ortogonal garantiza que, entre las 24 tarjetas, cada nivel de cada atributo aparece "
-     "combinado con suficiente variedad de los demás — así se puede aislar su efecto individual."),
-    ("Codificamos cada atributo como variable dummy",
+     "combinado con suficiente variedad de los demás: así se puede aislar su efecto individual."),
+    ("Codifiqué cada atributo como variable dummy",
      "Cada nivel se convierte en una variable 0/1 frente a un nivel de referencia (p.ej. \"Precio 100€\" "
      "y \"Precio 150€\" se codifican frente a la referencia \"Precio 50€\")."),
-    ("Ajustamos una regresión OLS sobre las 24.000 valoraciones",
+    ("Ajusté una regresión OLS sobre las 24.000 valoraciones",
      "Rating ~ Precio + Equipaje + Asiento + Escalas + Flexibilidad + Horario. El coeficiente de cada "
      "nivel es su <b>utilidad parcial</b> (part-worth): cuánto suma o resta a la valoración total, frente "
      "a su referencia."),
-    ("Sumamos las utilidades para simular cualquier vuelo",
+    ("Sumé las utilidades para simular cualquier vuelo",
      "La utilidad total de un vuelo (real o hipotético) es la suma de las utilidades de sus atributos. "
-     "Eso permite simular combinaciones que ningún cliente valoró nunca — la base del Playground."),
+     "Eso permite simular combinaciones que ningún cliente valoró nunca: la base del Playground."),
 ])
 ui.section_close()
 
@@ -211,7 +212,7 @@ ui.eyebrow("¿Cómo de bien explica el modelo el rating?")
 ui.h2("El modelo global")
 ui.lead(
     f"Con los 6 atributos, el modelo explica el {pct(model_summary['r_squared']*100)} de la variación en "
-    f"los ratings (R²={model_summary['r_squared']:.3f}) — y los 8 coeficientes son estadísticamente "
+    f"los ratings (R²={model_summary['r_squared']:.3f}), y los 8 coeficientes son estadísticamente "
     f"significativos (p < 0.001 en todos los casos)."
 )
 m1, m2, m3 = st.columns(3)
@@ -240,7 +241,7 @@ st.plotly_chart(charts.price_curve(pw_price), use_container_width=True, config={
 drop_1 = abs(pw_price[pw_price["Nivel"] == "100"]["Utilidad"].values[0])
 drop_2 = abs(pw_price[pw_price["Nivel"] == "150"]["Utilidad"].values[0] - pw_price[pw_price["Nivel"] == "100"]["Utilidad"].values[0])
 ui.finding(
-    f"Subir de 50€ a 100€ cuesta {drop_1:.2f} puntos de utilidad — pero subir de 100€ a 150€ cuesta "
+    f"Subir de 50€ a 100€ cuesta {drop_1:.2f} puntos de utilidad. Pero subir de 100€ a 150€ cuesta "
     f"{drop_2:.2f}, más del doble. La sensibilidad al precio <b>no es lineal</b>: hay un salto psicológico "
     "a partir de los 100€ que un modelo que asumiera \"cada euro cuesta lo mismo\" no habría detectado."
 )
@@ -265,7 +266,7 @@ ui.finding(
     f"<b>{ATTRIBUTE_LABELS[top_attr['Atributo']]}</b> ({pct(top_attr['Importancia'])}) y "
     f"<b>{ATTRIBUTE_LABELS[second_attr['Atributo']]}</b> ({pct(second_attr['Importancia'])}) concentran "
     f"casi el {pct(top_attr['Importancia']+second_attr['Importancia'], 0)} de lo que decide la valoración "
-    "de un vuelo. Selección de asiento y flexibilidad, en cambio, apenas mueven la aguja — son extras, no "
+    "de un vuelo. Selección de asiento y flexibilidad, en cambio, apenas mueven la aguja: son extras, no "
     "razones de decisión."
 )
 
@@ -278,12 +279,12 @@ biz_price = imp_segment[(imp_segment["Segmento"] == "Business") & (imp_segment["
 lc_price = imp_segment[(imp_segment["Segmento"] == "Low Cost") & (imp_segment["Atributo"] == "Price")]["Importancia"].values[0]
 ui.finding(
     f"Para <b>Business</b>, las escalas pesan más que el precio ({pct(biz_flight)} frente a "
-    f"{pct(biz_price)}) — pagan por llegar directo. Para <b>Low Cost</b>, el precio concentra por sí solo "
+    f"{pct(biz_price)}): pagan por llegar directo. Para <b>Low Cost</b>, el precio concentra por sí solo "
     f"{pct(lc_price)} de la decisión, casi el triple que las escalas. No es el mismo cliente disfrazado de "
     "tres segmentos: son tres lógicas de decisión distintas."
 )
 ui.body(
-    f"Otra señal en la misma dirección: el modelo ajustado <i>solo</i> con los datos de cada segmento "
+    f"Encontré otra señal en la misma dirección: el modelo ajustado <i>solo</i> con los datos de cada segmento "
     f"explica mucho mejor su comportamiento (R²={stats['segments']['Business']['r_squared']:.2f} en "
     f"Business, {stats['segments']['Leisure']['r_squared']:.2f} en Leisure, "
     f"{stats['segments']['Low Cost']['r_squared']:.2f} en Low Cost) que el modelo único con todos los "
@@ -336,19 +337,19 @@ ui.h3("¿Convence este vuelo a todo el mundo por igual?")
 if gap < 0.8:
     ui.finding(
         f"Los tres segmentos valoran este vuelo de forma muy parecida (diferencia de solo {gap:.1f} puntos "
-        f"entre {best_seg} y {worst_seg}) — es un diseño de vuelo genérico, sin un ganador ni un perdedor claro."
+        f"entre {best_seg} y {worst_seg}): es un diseño de vuelo genérico, sin un ganador ni un perdedor claro."
     )
 else:
     ui.finding(
         f"<b>{best_seg}</b> ({predictions[best_seg]:.1f}) valora este vuelo {gap:.1f} puntos por encima de "
-        f"<b>{worst_seg}</b> ({predictions[worst_seg]:.1f}) — la misma combinación de atributos no genera "
+        f"<b>{worst_seg}</b> ({predictions[worst_seg]:.1f}): la misma combinación de atributos no genera "
         "el mismo entusiasmo en todos los perfiles de cliente."
     )
 ui.section_close()
 
 # ============================================================ RESULTADOS ==
 ui.section_open("resultados")
-ui.eyebrow("¿Qué aprendimos?")
+ui.eyebrow("¿Qué aprendí?")
 ui.h2("Resultados")
 ui.lead(
     f"El precio y las escalas concentran juntos casi el {pct(top_attr['Importancia']+second_attr['Importancia'], 0)} "
@@ -382,7 +383,7 @@ ui.section_close()
 
 # ============================================================ DECISIONES ==
 ui.section_open("decisiones")
-ui.eyebrow("¿Qué haríamos con esto?")
+ui.eyebrow("¿Qué haría con esto?")
 ui.h2("Decisiones que habilita")
 ui.decision_flow(
     f"Business paga por llegar directo (Escalas {pct(biz_flight)}) casi tanto como por el precio (Precio {pct(biz_price)})",
@@ -449,7 +450,7 @@ ui.section_open("conclusion")
 ui.eyebrow("Del dato a la decisión")
 ui.h2("Conclusión")
 ui.lead(
-    f"Con {rows_fmt} valoraciones y un modelo simple —una regresión lineal— se descompone exactamente "
+    f"Con {rows_fmt} valoraciones y un modelo simple (una regresión lineal), descompuse exactamente "
     "cuánto vale cada característica de un vuelo, y para quién. El precio y las escalas dominan la "
     "decisión media, pero esa media esconde tres clientes distintos: uno que paga por llegar directo, uno "
     "que busca equilibrio, y uno que solo mira el precio. Diseñar un único vuelo \"para todos\" es, en "
