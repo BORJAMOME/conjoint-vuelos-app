@@ -3,10 +3,10 @@
 **Una aerolínea diseña vuelos con precio, escalas, equipaje y flexibilidad, pero no sabe cuánto vale cada
 extra para el cliente, ni si vale lo mismo para todos.**
 
-Una aplicación interactiva que descompone la valoración de un vuelo en el valor exacto que aporta cada
-una de sus características — precio, equipaje, asiento, escalas, flexibilidad y horario — y muestra cómo
-esa prioridad cambia por completo según el tipo de cliente. Deja diseñar un vuelo hipotético y comparar,
-en vivo, cómo lo valoraría cada segmento.
+Una aplicación interactiva en la que descompuse la valoración de un vuelo en el valor exacto que aporta
+cada una de sus características (precio, equipaje, asiento, escalas, flexibilidad y horario) y que
+muestra cómo esa prioridad cambia por completo según el tipo de cliente. Deja diseñar un vuelo
+hipotético y comparar, en vivo, cómo lo valoraría cada segmento.
 
 No hace falta saber nada de estadística para seguirla: empieza por el problema, explica el análisis
 conjoint en lenguaje llano, y termina dejándote construir tu propio vuelo para ver a quién convence.
@@ -18,8 +18,8 @@ conjoint en lenguaje llano, y termina dejándote construir tu propio vuelo para 
 ## De qué trata, en dos frases
 
 1.000 clientes de una aerolínea valoraron, del 1 al 10, las mismas 24 combinaciones de vuelo (diseño
-ortogonal sobre 6 atributos). Una regresión lineal (análisis conjoint) descompone esas 24.000
-valoraciones en la contribución de cada nivel de cada atributo — sus *part-worths*.
+ortogonal sobre 6 atributos). Con una regresión lineal (análisis conjoint) descompuse esas 24.000
+valoraciones en la contribución de cada nivel de cada atributo: sus *part-worths*.
 
 **El resultado:** el precio y las escalas concentran el 69% de la decisión media, pero esa media esconde
 tres lógicas de cliente muy distintas: **Business** paga por volar directo incluso más que por el precio;
@@ -43,8 +43,8 @@ Python + [Streamlit](https://streamlit.io) para la aplicación, y
 notebook, está en el
 [repositorio de portfolio](https://github.com/BORJAMOME/Data-Analytics-Portfolio/tree/main/03-Machine-Learning/01-supervisado/regresion/02-regresion-lineal-multiple/03-preferencias-vuelos-conjoint).
 
-Todos los números que aparecen en la app se calculan una vez en `model/train.py` y se guardan como
-datos — nada está escrito a mano.
+Calculé todos los números que aparecen en la app una vez en `model/train.py` y los guardé como datos:
+nada está escrito a mano.
 
 ## Ejecutarla en tu ordenador
 
@@ -80,9 +80,9 @@ data/                      el dataset original
 assets/style.css           el sistema visual de la app
 ```
 
-El Playground no depende de ningún pickle ni de scikit-learn: un modelo conjoint es una suma de
-utilidades parciales, así que predecir un rating es sumar el intercepto y la utilidad del nivel elegido
-en cada atributo — números pequeños guardados en un JSON, sin fragilidad entre entornos.
+Hice que el Playground no dependiera de ningún pickle ni de scikit-learn: un modelo conjoint es una
+suma de utilidades parciales, así que predecir un rating es sumar el intercepto y la utilidad del nivel
+elegido en cada atributo (números pequeños guardados en un JSON, sin fragilidad entre entornos).
 </details>
 
 ---
