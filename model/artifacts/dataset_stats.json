@@ -1,0 +1,33 @@
+{
+  "n_customers": 1000,
+  "n_cards": 24,
+  "n_rows": 24000,
+  "mismo_diseno_para_todos": true,
+  "segment_counts": {
+    "Business": 316,
+    "Leisure": 499,
+    "Low Cost": 185
+  },
+  "n_atributos": 6,
+  "n_combinaciones_factorial_completo": 144,
+  "segments": {
+    "Business": {
+      "n_customers": 316,
+      "n_obs": 7584,
+      "r_squared": 0.8692631517124718,
+      "intercept": 5.6786283461491935
+    },
+    "Leisure": {
+      "n_customers": 499,
+      "n_obs": 11976,
+      "r_squared": 0.9551803006927677,
+      "intercept": 5.182634097619293
+    },
+    "Low Cost": {
+      "n_customers": 185,
+      "n_obs": 4440,
+      "r_squared": 0.9224772177438425,
+      "intercept": 5.8374383798170815
+    }
+  }
+}
