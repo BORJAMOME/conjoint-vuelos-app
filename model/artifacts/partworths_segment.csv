@@ -1,0 +1,43 @@
+Atributo,Nivel,Utilidad,Segmento
+Price,50,0.0,Business
+Price,100,-0.39170357683928175,Business
+Price,150,-2.376689248038714,Business
+Baggage,No baggage,0.0,Business
+Baggage,20 kg,1.4175680306032845,Business
+Seat,Random,0.0,Business
+Seat,Seat Selection,0.818493298112746,Business
+Flight,1 Stop,0.0,Business
+Flight,Direct,3.690207999283729,Business
+Flexible,No,0.0,Business
+Flexible,Yes,0.4889967333149711,Business
+Departure,Morning,0.0,Business
+Departure,Afternoon,-0.8931722795542225,Business
+Departure,Evening,-0.9448803912612675,Business
+Price,50,0.0,Leisure
+Price,100,-1.0427918199282527,Leisure
+Price,150,-4.451503986499082,Leisure
+Baggage,No baggage,0.0,Leisure
+Baggage,20 kg,1.99627261275967,Leisure
+Seat,Random,0.0,Leisure
+Seat,Seat Selection,0.6740412327232521,Leisure
+Flight,1 Stop,0.0,Leisure
+Flight,Direct,3.003024040679519,Leisure
+Flexible,No,0.0,Leisure
+Flexible,Yes,0.4842297119728555,Leisure
+Departure,Morning,0.0,Leisure
+Departure,Afternoon,-0.6254245905466203,Leisure
+Departure,Evening,-0.3466435448903884,Leisure
+Price,50,0.0,Low Cost
+Price,100,-3.7853099178252934,Low Cost
+Price,150,-6.140040229078131,Low Cost
+Baggage,No baggage,0.0,Low Cost
+Baggage,20 kg,1.355677692053382,Low Cost
+Seat,Random,0.0,Low Cost
+Seat,Seat Selection,-0.2663939059632956,Low Cost
+Flight,1 Stop,0.0,Low Cost
+Flight,Direct,2.091435366478726,Low Cost
+Flexible,No,0.0,Low Cost
+Flexible,Yes,-0.20014058478964056,Low Cost
+Departure,Morning,0.0,Low Cost
+Departure,Afternoon,0.23971866570780892,Low Cost
+Departure,Evening,0.1739059633308101,Low Cost

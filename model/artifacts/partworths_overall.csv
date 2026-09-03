@@ -1,0 +1,15 @@
+Atributo,Nivel,Utilidad
+Price,50,0.0
+Price,100,-1.3444137832228653
+Price,150,-4.108241734022633
+Baggage,No baggage,0.0
+Baggage,20 kg,1.6948919044676778
+Seat,Random,0.0
+Seat,Seat Selection,0.5457075847293251
+Flight,1 Stop,0.0
+Flight,Direct,3.051530266871311
+Flexible,No,0.0
+Flexible,Yes,0.3591275858159024
+Departure,Morning,0.0
+Departure,Afternoon,-0.5499813578659639
+Departure,Evening,-0.4393847293226537

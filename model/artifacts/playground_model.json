@@ -1,0 +1,158 @@
+{
+  "intercept": {
+    "Overall": 5.460507072361176,
+    "Business": 5.6786283461491935,
+    "Leisure": 5.182634097619293,
+    "Low Cost": 5.8374383798170815
+  },
+  "partworths": {
+    "Overall": {
+      "Price": {
+        "50": 0.0,
+        "100": -1.3444137832228653,
+        "150": -4.108241734022633
+      },
+      "Baggage": {
+        "No baggage": 0.0,
+        "20 kg": 1.6948919044676778
+      },
+      "Seat": {
+        "Random": 0.0,
+        "Seat Selection": 0.5457075847293251
+      },
+      "Flight": {
+        "1 Stop": 0.0,
+        "Direct": 3.051530266871311
+      },
+      "Flexible": {
+        "No": 0.0,
+        "Yes": 0.3591275858159024
+      },
+      "Departure": {
+        "Morning": 0.0,
+        "Afternoon": -0.5499813578659639,
+        "Evening": -0.4393847293226537
+      }
+    },
+    "Business": {
+      "Price": {
+        "50": 0.0,
+        "100": -0.39170357683928175,
+        "150": -2.376689248038714
+      },
+      "Baggage": {
+        "No baggage": 0.0,
+        "20 kg": 1.4175680306032845
+      },
+      "Seat": {
+        "Random": 0.0,
+        "Seat Selection": 0.818493298112746
+      },
+      "Flight": {
+        "1 Stop": 0.0,
+        "Direct": 3.690207999283729
+      },
+      "Flexible": {
+        "No": 0.0,
+        "Yes": 0.4889967333149711
+      },
+      "Departure": {
+        "Morning": 0.0,
+        "Afternoon": -0.8931722795542225,
+        "Evening": -0.9448803912612675
+      }
+    },
+    "Leisure": {
+      "Price": {
+        "50": 0.0,
+        "100": -1.0427918199282527,
+        "150": -4.451503986499082
+      },
+      "Baggage": {
+        "No baggage": 0.0,
+        "20 kg": 1.99627261275967
+      },
+      "Seat": {
+        "Random": 0.0,
+        "Seat Selection": 0.6740412327232521
+      },
+      "Flight": {
+        "1 Stop": 0.0,
+        "Direct": 3.003024040679519
+      },
+      "Flexible": {
+        "No": 0.0,
+        "Yes": 0.4842297119728555
+      },
+      "Departure": {
+        "Morning": 0.0,
+        "Afternoon": -0.6254245905466203,
+        "Evening": -0.3466435448903884
+      }
+    },
+    "Low Cost": {
+      "Price": {
+        "50": 0.0,
+        "100": -3.7853099178252934,
+        "150": -6.140040229078131
+      },
+      "Baggage": {
+        "No baggage": 0.0,
+        "20 kg": 1.355677692053382
+      },
+      "Seat": {
+        "Random": 0.0,
+        "Seat Selection": -0.2663939059632956
+      },
+      "Flight": {
+        "1 Stop": 0.0,
+        "Direct": 2.091435366478726
+      },
+      "Flexible": {
+        "No": 0.0,
+        "Yes": -0.20014058478964056
+      },
+      "Departure": {
+        "Morning": 0.0,
+        "Afternoon": 0.23971866570780892,
+        "Evening": 0.1739059633308101
+      }
+    }
+  },
+  "orden": {
+    "Price": [
+      "50",
+      "100",
+      "150"
+    ],
+    "Baggage": [
+      "No baggage",
+      "20 kg"
+    ],
+    "Seat": [
+      "Random",
+      "Seat Selection"
+    ],
+    "Flight": [
+      "1 Stop",
+      "Direct"
+    ],
+    "Flexible": [
+      "No",
+      "Yes"
+    ],
+    "Departure": [
+      "Morning",
+      "Afternoon",
+      "Evening"
+    ]
+  },
+  "atributos": [
+    "Price",
+    "Baggage",
+    "Seat",
+    "Flight",
+    "Flexible",
+    "Departure"
+  ]
+}
