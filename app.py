@@ -327,13 +327,7 @@ with pg_right:
     badge_cols = st.columns(3)
     for c, seg in zip(badge_cols, SEGMENT_ORDER):
         with c:
-            st.markdown(
-                f'<div class="co-card" style="text-align:center; padding:1rem .6rem;">'
-                f'<div class="kpi-label" style="font-size:.72rem;">{seg}</div>'
-                f'<div class="kpi-num" style="font-size:1.5rem; color:{SEGMENT_COLORS[seg]}; margin:.3rem 0;">'
-                f'{predictions[seg]:.1f}</div></div>',
-                unsafe_allow_html=True,
-            )
+            ui.stat_card(seg, f"{predictions[seg]:.1f}", color=SEGMENT_COLORS[seg], value_size="1.5rem")
 
 best_seg = max(SEGMENT_ORDER, key=lambda s: predictions[s])
 worst_seg = min(SEGMENT_ORDER, key=lambda s: predictions[s])
@@ -370,15 +364,10 @@ for c, seg in zip(res_cols, SEGMENT_ORDER):
     with c:
         top2 = (imp_segment[imp_segment["Segmento"] == seg]
                 .sort_values("Importancia", ascending=False).head(2))
-        st.markdown(
-            f'<div class="co-card" style="height:100%;">'
-            f'<div class="kpi-label" style="font-weight:700; color:{SEGMENT_COLORS[seg]};">{seg}</div>'
-            f'<div class="kpi-num" style="font-size:1.3rem; margin:.3rem 0;">{priority_by_segment[seg]}</div>'
-            f'<div class="kpi-label">'
-            + " · ".join(f"{ATTRIBUTE_LABELS[a]} {pct(v)}" for a, v in zip(top2["Atributo"], top2["Importancia"]))
-            + '</div></div>',
-            unsafe_allow_html=True,
-        )
+        subtitle = " · ".join(f"{ATTRIBUTE_LABELS[a]} {pct(v)}"
+                               for a, v in zip(top2["Atributo"], top2["Importancia"]))
+        ui.stat_card(seg, priority_by_segment[seg], subtitle,
+                     title_color=SEGMENT_COLORS[seg], value_size="1.3rem")
 ui.section_close()
 
 # ============================================================ IMPACTO ==

@@ -242,6 +242,39 @@ def decision_flow(insight: str, action: str, objective: str, metric: str):
     )
 
 
+def stat_card(title: str, value: str, subtitle: str = "", color: str = None, paper: bool = False,
+              value_size: str = None, title_color: str = None):
+    """Tarjeta compacta título/valor grande/subtítulo — para badges de
+    resultado, perfiles de categoría, o cualquier "ficha" repetida en un
+    grid de comparación (un modelo, un segmento, un cluster). Sustituye
+    el st.markdown crudo que antes se repetía a mano en cada proyecto.
+    `value_size` (p.ej. "1.35rem") ajusta el tamaño del valor cuando la
+    tarjeta vive en un grid apretado de 3+ columnas — el kpi-num por
+    defecto (clamp 1.6rem-2.3rem) no siempre cabe cómodo ahí. `color`
+    tiñe el VALOR (úsalo cuando el valor es lo que lleva el significado
+    semántico, p.ej. un modelo prediciendo una clase); `title_color`
+    tiñe y pone en negrita el TÍTULO en vez del valor (úsalo cuando la
+    tarjeta representa una categoría — p.ej. un segmento — y el número
+    de abajo es neutro)."""
+    cls = "co-card paper" if paper else "co-card"
+    style_parts = ["margin:.35rem 0 .2rem;"]
+    if color:
+        style_parts.append(f"color:{color};")
+    if value_size:
+        style_parts.append(f"font-size:{value_size};")
+    value_style = f' style="{" ".join(style_parts)}"' if style_parts else ""
+    title_style = f' style="font-size:.72rem; font-weight:700; color:{title_color};"' if title_color \
+        else ' style="font-size:.72rem;"'
+    subtitle_html = f'<div class="kpi-label">{subtitle}</div>' if subtitle else ""
+    st.markdown(
+        f'<div class="{cls}" style="text-align:center; padding:1.1rem .8rem; height:100%;">'
+        f'<div class="kpi-label"{title_style}>{title}</div>'
+        f'<div class="kpi-num"{value_style}>{value}</div>'
+        f'{subtitle_html}</div>',
+        unsafe_allow_html=True,
+    )
+
+
 def footer_minimal(name: str, repo_url: str, linkedin_url: str, email: str,
                     portfolio_url: str = "https://borjamora.es/"):
     """Footer minimalista integrado con el fondo de la página: nombre a la
