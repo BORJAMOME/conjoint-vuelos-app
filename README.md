@@ -13,7 +13,7 @@ conjoint en lenguaje llano, y termina dejándote construir tu propio vuelo para 
 
 ## Ver la app
 
-🔗 **[Abrir la app](https://conjoint-vuelos.streamlit.app)** _(actualizar con la URL real tras el deploy en Streamlit Cloud)_
+🔗 **[Abrir la app](https://conjoint-vuelos.streamlit.app)** 
 
 ## De qué trata, en dos frases
 
