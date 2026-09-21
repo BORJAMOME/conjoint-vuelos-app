@@ -329,8 +329,8 @@ with ed.figure("utilidades"):
                 charts.partworth_bars(pw_overall[pw_overall["Atributo"] == atributo], LEVEL_LABELS,
                                       ATTRIBUTE_LABELS[atributo]),
                 use_container_width=True, config=PLOT)
-    ed.caption("FIG. 03", "Cuánto suma o resta cada nivel a la valoración (puntos sobre 10), frente a su nivel de "
-                          "referencia (utilidad 0).", "Modelo entrenado en este proyecto")
+    ed.caption("FIG. 03", "Cuánto suma (azul) o resta (rojo) cada nivel a la valoración (puntos sobre 10), frente "
+                          "a su nivel de referencia (utilidad 0, en gris).", "Modelo entrenado en este proyecto")
 
 ed.subhead("El precio no pesa igual en todos los tramos", level="wide")
 with ed.split("precio", "5-7") as (txt, viz):
@@ -362,7 +362,8 @@ ed.subhead("El cliente promedio", level="wide")
 with ed.split("importancia", "7-5") as (viz, txt):
     with viz:
         st.plotly_chart(charts.importance_overall(imp_overall, ATTRIBUTE_LABELS), use_container_width=True, config=PLOT)
-        ed.caption("FIG. 05", "Importancia relativa de cada atributo con todos los clientes juntos.",
+        ed.caption("FIG. 05", "Importancia relativa de cada atributo con todos los clientes juntos. En azul, los dos atributos que "
+                   "concentran casi toda la decisión.",
                    "Modelo entrenado en este proyecto")
     with txt:
         ed.insight(
@@ -531,13 +532,10 @@ ed.subhead("En resumen")
 ed.metrics([
     ("Cliente promedio", pct(top_two, 0),
      f"{ATTRIBUTE_LABELS[top_attr]} y {ATTRIBUTE_LABELS[second_attr].lower()} concentran casi toda la decisión."),
-    ("Business", pct(biz_flight),
-     f"Prioriza las escalas, por encima del precio ({pct(biz_price)}).", SEGMENT_COLORS["Business"]),
+    ("Business", pct(biz_flight), f"Prioriza las escalas, por encima del precio ({pct(biz_price)})."),
     ("Leisure", pct(imp_s[("Leisure", "Price")]),
-     f"Da más peso al precio, pero mantiene las escalas como segundo factor ({pct(imp_s[('Leisure', 'Flight')])}).",
-     SEGMENT_COLORS["Leisure"]),
-    ("Low Cost", pct(lc_price),
-     f"Concentra casi el {pct(lc_price, 0)} de su decisión en el precio.", SEGMENT_COLORS["Low Cost"]),
+     f"Da más peso al precio, pero mantiene las escalas como segundo factor ({pct(imp_s[('Leisure', 'Flight')])})."),
+    ("Low Cost", pct(lc_price), f"Concentra casi el {pct(lc_price, 0)} de su decisión en el precio."),
 ])
 
 # ============================================================ 10 · DECISIONES ==
@@ -561,7 +559,7 @@ with ed.figure("hipotesis"):
              "principal.",
              "<b>Qué medir.</b> Conversión y coste de adquisición.",
          ]},
-        {"tag": "Hipótesis · Equipaje", "title": "Equipaje en la propuesta base",
+        {"tag": "Hipótesis · Equipaje", "title": "Equipaje en la propuesta base", "color": "var(--muted)",
          "points": [
              f"<b>Insight.</b> Su importancia se mantiene relativamente estable entre los tres segmentos "
              f"({pct(min(baggage_range), 0)} a {pct(max(baggage_range), 0)})"

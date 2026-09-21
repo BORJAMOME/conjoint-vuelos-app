@@ -5,30 +5,36 @@
    tipográficas. La composición (anchos, rejilla, ritmo, componentes) está en
    editorial.css y es común a todos los proyectos de ML.
 
-   Paleta: fondo cálido neutro + gama de azules-marino como único acento
-   estructural. El color nunca se usa para «decorar» texto: la jerarquía se
-   construye con escala, peso y espacio. Rojo y verde quedan reservados en
-   exclusiva para lo semántico (negativo / positivo) y para identificar a los
-   segmentos, con el mismo color en gráficos y texto.
+   PALETA (propia de este proyecto, más viva que la del resto del portfolio):
+       #080708  negro    → tinta: texto, titulares, banda de alto impacto
+       #3772FF  azul     → color principal de datos; también «positivo»
+       #DF2935  rojo     → «negativo» y énfasis
+       #FDCA40  amarillo → acento sobre fondo oscuro, resaltados y escenarios
+       #E6E8E6  gris     → superficies y filetes
+   El amarillo no tiene contraste como TEXTO sobre fondo claro (1,4:1), así
+   que nunca se usa para escribir sobre claro: solo como relleno, barra o
+   acento sobre negro. Azul y rojo sí funcionan como texto grande (≥ 3,6:1).
+   Los segmentos se identifican con negro (Business), azul (Leisure) y
+   amarillo (Low Cost), con el mismo color en gráficos y tarjetas.
    ========================================================================== */
 
 :root{
-  --bg:        #FBFBFB;
-  --card:      #F2F0EB;
-  --line:      #E3DFD5;
-  --ink:       #1D2638;
-  --navy-2:    #273A5F;
-  --navy-3:    #4A628E;
-  --navy-4:    #B9C5D6;
-  --text:      #2E3A4E;
-  --muted:     #6B7280;
-  --label:     #5A6270;
+  --bg:        #F8F9F8;
+  --card:      #E6E8E6;
+  --line:      #DCDFDC;
+  --ink:       #080708;
+  --navy-2:    #3772FF;      /* nombres heredados del sistema editorial: aquí, el azul */
+  --navy-3:    #3772FF;      /* raya de acento y foco de teclado */
+  --navy-4:    #FDCA40;      /* acento sobre la banda oscura */
+  --text:      #2A2B2A;
+  --muted:     #5E615E;
+  --label:     #4B4E4B;
 
-  --positive:  #6E7F5B;
-  --negative:  #C2412E;
+  --positive:  #3772FF;
+  --negative:  #DF2935;
 
   /* Color de apoyo: «esto es un escenario / una simulación» */
-  --support:   #B8783C;
+  --support:   #FDCA40;
 
   --serif: Georgia, 'Times New Roman', Times, serif;
   --sans:  Arial, Helvetica, sans-serif;
@@ -36,9 +42,15 @@
 
 .stApp{ background: var(--bg); }
 body, .stMarkdown, p, div, span{ font-family: var(--sans); color: var(--text); }
-::selection{ background: var(--navy-4); }
+::selection{ background: var(--navy-4); color: var(--ink); }
 hr{ border-color: var(--line) !important; }
 .stButton>button, .stDownloadButton>button, .stLinkButton>a{
   background: var(--ink) !important; color: #fff !important; border-radius: 8px !important;
   border: none !important; font-weight: 600 !important;
 }
+
+/* Tarjeta de segmento amarilla: el amarillo queda en la barra y el fondo; el texto, en tinta */
+.ed-card[style*="FDCA40" i]{ background: color-mix(in srgb, var(--seg) 16%, var(--bg)); }
+.ed-card[style*="FDCA40" i] .ed-card-title,
+.ed-card[style*="FDCA40" i] .ed-card-stat-num{ color: var(--ink); }
+.ed-card[style*="FDCA40" i] .ed-card-list li::marker{ color: var(--ink); }

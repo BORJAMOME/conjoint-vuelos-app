@@ -84,7 +84,7 @@ model/
   artifacts/                   resultados ya calculados (part-worths, importancia, R²...)
 data/                      el dataset original
 assets/editorial.css       sistema de composición editorial (rejilla, niveles de ancho, ritmo, tokens) — reutilizable
-assets/style.css           identidad de este proyecto (paleta y familias tipográficas)
+assets/style.css           identidad de este proyecto: paleta propia (negro, azul, rojo, amarillo y gris) y tipografías
 ```
 
 Hice que el Playground no dependiera de ningún pickle ni de scikit-learn: un modelo conjoint es una

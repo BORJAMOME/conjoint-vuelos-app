@@ -27,10 +27,9 @@ LEVEL_LABELS = {
 }
 
 SEGMENT_LABELS = {"Overall": "Todos los clientes", "Business": "Business", "Leisure": "Leisure", "Low Cost": "Low Cost"}
-# Los segmentos son categorías sin jerarquía de "bueno/malo": nunca usan verde/rojo (reservados a lo
-# semántico) ni el ámbar (reservado a escenarios). Deben distinguirse a simple vista en gráficos y tarjetas,
-# así que ya no son tres tonos casi idénticos de azul: tinta, azul medio y ciruela (contraste ≥ 5:1).
-SEGMENT_COLORS = {"Overall": "#B9C5D6", "Business": "#1D2638", "Leisure": "#4A628E", "Low Cost": "#7D4F77"}
+# Paleta propia de este proyecto (ver assets/style.css): negro, azul y amarillo identifican a los tres segmentos;
+# el rojo queda para lo negativo. «Overall» (todos los clientes) va en gris medio derivado del gris de la paleta.
+SEGMENT_COLORS = {"Overall": "#A3A6A3", "Business": "#080708", "Leisure": "#3772FF", "Low Cost": "#FDCA40"}
 
 
 @st.cache_data(show_spinner=False)

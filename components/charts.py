@@ -1,23 +1,28 @@
-"""Figuras Plotly. Mismo sistema de color que el resto del portfolio:
-  - Estructura (series, barras)  → azul marino (INK / NAVY2)
-  - Referencia                    → azul claro (NAVY4)
-  - Segmentos                     → el color de cada segmento (SEGMENT_COLORS), el mismo en gráficos y tarjetas
-  - Verde / rojo                  → solo lo semántico (aquí prácticamente no se usan: un part-worth no es
-                                    «bueno» o «malo», es cuánto vale un nivel frente a su referencia)
-Legibles en móvil: etiquetas largas ajustadas en varias líneas, leyendas arriba, sin anotaciones
-flotantes que se solapen con las barras."""
+"""Figuras Plotly con la paleta propia de este proyecto (ver assets/style.css):
+  - Azul   #3772FF  → datos principales; en utilidades, lo que SUMA a la valoración
+  - Rojo   #DF2935  → lo que RESTA (utilidad negativa) y el énfasis
+  - Negro  #080708  → tinta: etiquetas, líneas de referencia; también el segmento Business
+  - Amarillo #FDCA40 → segmento Low Cost y resaltados; nunca como texto sobre claro (contraste 1,4:1)
+  - Gris   #E6E8E6  → cuadrícula y niveles de referencia (y su versión media, GRAY_MID, para «todos los clientes»)
+Los segmentos usan SEGMENT_COLORS (utils/data_loader.py): el mismo color en gráficos y en tarjetas. Todas las
+barras y cajas llevan un contorno fino en tinta para que el amarillo y el gris se definan sobre fondo claro.
+Legibles en móvil: etiquetas largas ajustadas en varias líneas, leyendas arriba, sin anotaciones flotantes que
+se solapen con las barras."""
 import textwrap
 
 import pandas as pd
 import plotly.graph_objects as go
 
-INK = "#1D2638"
-NAVY2 = "#273A5F"
-NAVY3 = "#4A628E"
-NAVY4 = "#B9C5D6"
-MUTED = "#6B7280"
-LINE = "#E3DFD5"
+INK = "#080708"
+BLUE = "#3772FF"
+RED = "#DF2935"
+YELLOW = "#FDCA40"
+GRAY = "#E6E8E6"
+GRAY_MID = "#A3A6A3"
+MUTED = "#5E615E"
+GRID = "#DCDFDC"
 FONT = "Arial, Helvetica, sans-serif"
+OUTLINE = dict(color=INK, width=0.7)
 
 
 def _num(value: float, decimals: int = 1, sign: bool = False) -> str:
@@ -41,14 +46,14 @@ def _base_layout(fig, height=380, legend=True):
         showlegend=legend,
         legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="left", x=0,
                     font=dict(size=11.5), bgcolor="rgba(0,0,0,0)"),
-        xaxis=dict(showgrid=False, linecolor=LINE, tickfont=dict(color=MUTED)),
-        yaxis=dict(showgrid=True, gridcolor=LINE, zeroline=False, tickfont=dict(color=MUTED)),
+        xaxis=dict(showgrid=False, linecolor=GRID, tickfont=dict(color=MUTED)),
+        yaxis=dict(showgrid=True, gridcolor=GRID, zeroline=False, tickfont=dict(color=MUTED)),
     )
     return fig
 
 
 def rating_distribution(ratings: pd.Series) -> go.Figure:
-    fig = go.Figure(go.Histogram(x=ratings, marker_color=NAVY2, opacity=0.85, nbinsx=24))
+    fig = go.Figure(go.Histogram(x=ratings, nbinsx=24, marker=dict(color=BLUE, line=OUTLINE), opacity=0.95))
     fig.update_xaxes(title_text="Valoración (1 a 10)")
     fig.update_yaxes(title_text="Valoraciones")
     return _base_layout(fig, height=380, legend=False)
@@ -57,22 +62,23 @@ def rating_distribution(ratings: pd.Series) -> go.Figure:
 def rating_by_segment(df: pd.DataFrame, segment_colors: dict, order: list) -> go.Figure:
     fig = go.Figure()
     for seg in order:
+        color = segment_colors.get(seg, GRAY_MID)
         fig.add_trace(go.Box(
-            y=df.loc[df["Segment"] == seg, "Rating"], name=seg,
-            marker_color=segment_colors.get(seg, MUTED), boxmean=True,
+            y=df.loc[df["Segment"] == seg, "Rating"], name=seg, boxmean=True,
+            fillcolor=color, line=dict(color=INK, width=1.2), marker=dict(color=INK, size=4),
+            opacity=0.95,
         ))
     fig.update_yaxes(title_text="Valoración (1 a 10)")
     return _base_layout(fig, height=380, legend=False)
 
 
 def partworth_bars(pw_attr: pd.DataFrame, level_labels: dict, title: str = "") -> go.Figure:
-    """Una barra por nivel de un atributo; la referencia (utilidad 0) en azul claro."""
+    """Una barra por nivel: azul si suma a la valoración, rojo si resta, gris en la referencia (utilidad 0)."""
     labels = [_wrap(level_labels.get(n, n)) for n in pw_attr["Nivel"]]
-    colors = [NAVY4 if u == 0 else NAVY2 for u in pw_attr["Utilidad"]]
-    top = pw_attr["Utilidad"].max()
-    bottom = pw_attr["Utilidad"].min()
+    colors = [GRAY if u == 0 else (BLUE if u > 0 else RED) for u in pw_attr["Utilidad"]]
+    top, bottom = pw_attr["Utilidad"].max(), pw_attr["Utilidad"].min()
     fig = go.Figure(go.Bar(
-        x=labels, y=pw_attr["Utilidad"], marker_color=colors,
+        x=labels, y=pw_attr["Utilidad"], marker=dict(color=colors, line=OUTLINE),
         text=[_num(u, 2, sign=True) if u != 0 else "ref." for u in pw_attr["Utilidad"]],
         textposition="outside", cliponaxis=False, hoverinfo="skip", textfont=dict(size=11.5),
     ))
@@ -84,11 +90,13 @@ def partworth_bars(pw_attr: pd.DataFrame, level_labels: dict, title: str = "") -
     return fig
 
 
-def importance_overall(imp_df: pd.DataFrame, attribute_labels: dict) -> go.Figure:
+def importance_overall(imp_df: pd.DataFrame, attribute_labels: dict, highlight: int = 2) -> go.Figure:
+    """Importancia relativa; las `highlight` barras más largas en azul y el resto en gris medio."""
     d = imp_df.sort_values("Importancia", ascending=True)
     labels = [_wrap(attribute_labels.get(a, a), 14) for a in d["Atributo"]]
+    colors = [BLUE if i >= len(d) - highlight else GRAY_MID for i in range(len(d))]
     fig = go.Figure(go.Bar(
-        x=d["Importancia"], y=labels, orientation="h", marker_color=NAVY2,
+        x=d["Importancia"], y=labels, orientation="h", marker=dict(color=colors, line=OUTLINE),
         text=[f"{_num(v)}%" for v in d["Importancia"]], textposition="outside", cliponaxis=False, hoverinfo="skip",
     ))
     fig.update_xaxes(title_text="Importancia relativa (%)", range=[0, max(d["Importancia"]) * 1.2])
@@ -105,7 +113,7 @@ def importance_by_segment(imp_seg_df: pd.DataFrame, attribute_labels: dict, segm
         sub = imp_seg_df[imp_seg_df["Segmento"] == seg].set_index("Atributo").reindex(attrs)
         fig.add_trace(go.Bar(
             y=labels, x=sub["Importancia"], name=seg, orientation="h",
-            marker_color=segment_colors.get(seg, MUTED),
+            marker=dict(color=segment_colors.get(seg, GRAY_MID), line=OUTLINE),
             text=[f"{_num(v)}%" for v in sub["Importancia"]], textposition="outside", cliponaxis=False,
             textfont=dict(size=10.5), hoverinfo="skip",
         ))
@@ -116,15 +124,16 @@ def importance_by_segment(imp_seg_df: pd.DataFrame, attribute_labels: dict, segm
 
 
 def price_curve(pw_price: pd.DataFrame) -> go.Figure:
-    """La utilidad del precio no es lineal: una línea lo deja ver de un vistazo."""
+    """La utilidad del precio no es lineal: una línea lo deja ver de un vistazo (rojo: lo que resta)."""
     x = [f"{n} €" for n in pw_price["Nivel"]]
+    marker_colors = [GRAY_MID if u == 0 else RED for u in pw_price["Utilidad"]]
     fig = go.Figure(go.Scatter(
         x=x, y=pw_price["Utilidad"], mode="lines+markers+text",
-        line=dict(color=NAVY2, width=2.6), marker=dict(size=10, color=NAVY2),
+        line=dict(color=INK, width=2.4), marker=dict(size=13, color=marker_colors, line=dict(color=INK, width=1)),
         text=[_num(u, 2, sign=True) if u != 0 else "ref." for u in pw_price["Utilidad"]],
         textposition="top center", cliponaxis=False, hoverinfo="skip", textfont=dict(size=12.5),
     ))
-    fig.add_hline(y=0, line_color=LINE)
+    fig.add_hline(y=0, line_color=GRID)
     fig.update_yaxes(title_text="Utilidad parcial (puntos)", range=[min(pw_price["Utilidad"]) * 1.2, 0.9])
     fig.update_xaxes(title_text="Precio del billete")
     return _base_layout(fig, height=340, legend=False)
@@ -134,9 +143,9 @@ def playground_segment_comparison(predictions: dict, segment_labels: dict, segme
                                   order: list) -> go.Figure:
     labels = [_wrap(segment_labels.get(s, s), 12) for s in order]
     values = [predictions[s] for s in order]
-    colors = [segment_colors.get(s, MUTED) for s in order]
+    colors = [segment_colors.get(s, GRAY_MID) for s in order]
     fig = go.Figure(go.Bar(
-        x=labels, y=values, marker_color=colors, hoverinfo="skip",
+        x=labels, y=values, marker=dict(color=colors, line=OUTLINE), hoverinfo="skip",
         text=[_num(v) for v in values], textposition="outside", cliponaxis=False,
     ))
     fig.update_yaxes(title_text="Valoración estimada (1 a 10)", range=[0, 11])
