@@ -27,10 +27,10 @@ LEVEL_LABELS = {
 }
 
 SEGMENT_LABELS = {"Overall": "Todos los clientes", "Business": "Business", "Leisure": "Leisure", "Low Cost": "Low Cost"}
-# Familia de azules-marino, igual que el resto del sistema visual: los 3
-# segmentos son categorías sin jerarquía de "bueno/malo", así que nunca
-# usan verde/rojo — esos quedan reservados en exclusiva para lo semántico.
-SEGMENT_COLORS = {"Overall": "#B9C5D6", "Business": "#1D2638", "Leisure": "#4A628E", "Low Cost": "#273A5F"}
+# Los segmentos son categorías sin jerarquía de "bueno/malo": nunca usan verde/rojo (reservados a lo
+# semántico) ni el ámbar (reservado a escenarios). Deben distinguirse a simple vista en gráficos y tarjetas,
+# así que ya no son tres tonos casi idénticos de azul: tinta, azul medio y ciruela (contraste ≥ 5:1).
+SEGMENT_COLORS = {"Overall": "#B9C5D6", "Business": "#1D2638", "Leisure": "#4A628E", "Low Cost": "#7D4F77"}
 
 
 @st.cache_data(show_spinner=False)

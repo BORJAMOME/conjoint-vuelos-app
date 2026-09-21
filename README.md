@@ -35,7 +35,7 @@ tres lógicas de cliente distintas: para **Business**, volar directo pesa más q
 6. **Explicabilidad** — importancia relativa de cada atributo para el cliente promedio
 7. **Segmentos** — tres formas distintas de valorar el mismo vuelo
 8. **Playground** — diseña un vuelo y compara en directo cómo lo valora cada segmento (avisa si el vuelo se valoró de verdad o es una estimación, y si el modelo se sale de la escala)
-9. **Resultados, decisiones y límites** — hipótesis de negocio (no conclusiones del modelo) y dónde termina lo que sabemos
+9. **Resultado, decisiones y límites** — hipótesis de negocio (no conclusiones del modelo) y dónde termina lo que sabemos
 
 ## Cómo está hecho
 
@@ -72,7 +72,8 @@ python model/export_design_checks.py   # comprobaciones del diseño; no cambia e
 ```
 app.py                    la aplicación — toda la narrativa, sección a sección
 components/
-  ui.py                    bloques visuales reutilizables (tarjetas, títulos, callouts)
+  editorial.py              sistema editorial: un componente por función narrativa (lede, beat, figure…)
+  ui.py                    bloques visuales heredados de versiones anteriores (ya no los usa app.py)
   charts.py                gráficos, con la paleta de colores del proyecto
 utils/
   data_loader.py            carga de artefactos (con cache de Streamlit)
@@ -82,7 +83,8 @@ model/
   export_design_checks.py      comprobaciones del diseño y de la robustez (no toca el modelo)
   artifacts/                   resultados ya calculados (part-worths, importancia, R²...)
 data/                      el dataset original
-assets/style.css           el sistema visual de la app
+assets/editorial.css       sistema de composición editorial (rejilla, niveles de ancho, ritmo, tokens) — reutilizable
+assets/style.css           identidad de este proyecto (paleta y familias tipográficas)
 ```
 
 Hice que el Playground no dependiera de ningún pickle ni de scikit-learn: un modelo conjoint es una
@@ -91,5 +93,12 @@ elegido en cada atributo (números pequeños guardados en un JSON, sin fragilida
 </details>
 
 ---
+
+### Sistema editorial (reutilizable en otros proyectos de ML)
+
+`assets/editorial.css` convierte el contenedor de Streamlit en una rejilla con cinco niveles de ancho y una escala
+de espacio y de tipografía editoriales; `components/editorial.py` expone un componente por función narrativa.
+Es el mismo sistema que usan el resto de proyectos de ML del portfolio. Requiere `streamlit==1.58.0` (usa
+`st.container(key=...)` y el DOM de esa versión).
 
 **Autor:** Borja Mora Méndez · [LinkedIn](https://www.linkedin.com/in/borjamoramendez/) · [GitHub](https://github.com/BORJAMOME)
