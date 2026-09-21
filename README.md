@@ -73,7 +73,6 @@ python model/export_design_checks.py   # comprobaciones del diseño; no cambia e
 app.py                    la aplicación — toda la narrativa, sección a sección
 components/
   editorial.py              sistema editorial: un componente por función narrativa (lede, beat, figure…)
-  ui.py                    bloques visuales heredados de versiones anteriores (ya no los usa app.py)
   charts.py                gráficos, con la paleta de colores del proyecto
 utils/
   data_loader.py            carga de artefactos (con cache de Streamlit)
