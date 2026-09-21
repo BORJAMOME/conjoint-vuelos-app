@@ -12,7 +12,7 @@ conjoint en lenguaje llano, y termina dejándote construir tu propio vuelo para 
 
 ## Ver la app
 
-🔗 **[Abrir la app](https://conjoint-vuelos.streamlit.app)** 
+🔗 **[Abrir la app](https://preferencias-vuelos.streamlit.app)** 
 
 ## De qué trata, en dos frases
 
