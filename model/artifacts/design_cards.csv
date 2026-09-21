@@ -1,0 +1,25 @@
+CardID,Price,Baggage,Seat,Flight,Flexible,Departure
+1,50,20 kg,Seat Selection,Direct,Yes,Morning
+2,50,No baggage,Random,Direct,No,Afternoon
+3,50,20 kg,Random,1 Stop,Yes,Evening
+4,50,No baggage,Seat Selection,1 Stop,No,Morning
+5,50,20 kg,Seat Selection,Direct,No,Evening
+6,50,No baggage,Random,1 Stop,Yes,Afternoon
+7,100,20 kg,Random,Direct,Yes,Morning
+8,100,No baggage,Seat Selection,Direct,No,Evening
+9,100,20 kg,Seat Selection,1 Stop,No,Afternoon
+10,100,No baggage,Random,1 Stop,Yes,Morning
+11,100,20 kg,Random,Direct,No,Evening
+12,100,No baggage,Seat Selection,1 Stop,Yes,Afternoon
+13,150,20 kg,Seat Selection,Direct,Yes,Evening
+14,150,No baggage,Random,Direct,No,Morning
+15,150,20 kg,Random,1 Stop,Yes,Afternoon
+16,150,No baggage,Seat Selection,1 Stop,No,Evening
+17,150,20 kg,Seat Selection,Direct,No,Morning
+18,150,No baggage,Random,1 Stop,Yes,Afternoon
+19,50,20 kg,Random,Direct,Yes,Afternoon
+20,100,No baggage,Seat Selection,Direct,Yes,Morning
+21,150,20 kg,Random,Direct,No,Evening
+22,50,No baggage,Seat Selection,1 Stop,Yes,Morning
+23,100,20 kg,Seat Selection,Direct,No,Afternoon
+24,150,No baggage,Random,1 Stop,No,Morning

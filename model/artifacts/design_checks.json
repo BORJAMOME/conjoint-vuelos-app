@@ -1,0 +1,177 @@
+{
+  "n_customers": 1000,
+  "mismo_diseno_para_todos_verificado": true,
+  "n_tarjetas": 24,
+  "n_factorial_completo": 144,
+  "n_combinaciones_sin_valorar": 120,
+  "vif_max": 1.578420673338597,
+  "correlacion_max_entre_atributos": 0.4181210050035453,
+  "rating": {
+    "min": 1.0,
+    "max": 10.0,
+    "media": 6.28425,
+    "pct_en_el_maximo": 22.083333333333332,
+    "por_segmento": {
+      "Business": {
+        "media": 7.543908227848101,
+        "mediana": 8.5,
+        "pct_maximo": 35.93090717299578
+      },
+      "Leisure": {
+        "media": 6.245532732130928,
+        "mediana": 6.75,
+        "pct_maximo": 19.029726118904474
+      },
+      "Low Cost": {
+        "media": 4.23704954954955,
+        "mediana": 4.0,
+        "pct_maximo": 6.666666666666667
+      }
+    }
+  },
+  "robustez": {
+    "t_min_agrupado_por_cliente": 32.359109107479156,
+    "p_max_agrupado_por_cliente": 1.0329053180540955e-229,
+    "p_max_ols_clasico": 1.631732335819364e-55
+  },
+  "ajuste_tarjeta": {
+    "Overall": {
+      "mae_tarjeta": 0.316452206864633,
+      "max_tarjeta": 1.1416644142453922,
+      "tarjetas_por_encima_del_maximo": 3
+    },
+    "Business": {
+      "mae_tarjeta": 0.7600063501033497,
+      "max_tarjeta": 2.0938944074639245,
+      "tarjetas_por_encima_del_maximo": 6
+    },
+    "Leisure": {
+      "mae_tarjeta": 0.4699600979822218,
+      "max_tarjeta": 1.3402016957545904,
+      "tarjetas_por_encima_del_maximo": 3
+    },
+    "Low Cost": {
+      "mae_tarjeta": 0.6702533156433942,
+      "max_tarjeta": 1.3950897918935343,
+      "tarjetas_por_encima_del_maximo": 0
+    }
+  },
+  "importancia_ci": {
+    "Business": {
+      "Price": {
+        "puntual": 24.409256981594854,
+        "lo": 24.249562836143188,
+        "hi": 24.579210409653903
+      },
+      "Baggage": {
+        "puntual": 14.558816377210814,
+        "lo": 14.392760350988892,
+        "hi": 14.732267160200594
+      },
+      "Seat": {
+        "puntual": 8.406152915377954,
+        "lo": 8.265289983310868,
+        "hi": 8.539295835744218
+      },
+      "Flight": {
+        "puntual": 37.899458435462684,
+        "lo": 37.67559988673305,
+        "hi": 38.120339913417915
+      },
+      "Flexible": {
+        "puntual": 5.022131915855401,
+        "lo": 4.877262456668925,
+        "hi": 5.164089536763605
+      },
+      "Departure": {
+        "puntual": 9.70418337449829,
+        "lo": 9.527252054100476,
+        "hi": 9.876270339866506
+      },
+      "flight_minus_price": {
+        "puntual": 13.49020145386783,
+        "lo": 13.187998727637643,
+        "hi": 13.78368225727885
+      }
+    },
+    "Leisure": {
+      "Price": {
+        "puntual": 39.623530215206706,
+        "lo": 39.469319017076934,
+        "hi": 39.774974457706854
+      },
+      "Baggage": {
+        "puntual": 17.769133405108605,
+        "lo": 17.640248087917737,
+        "hi": 17.895632881171277
+      },
+      "Seat": {
+        "puntual": 5.999745980708212,
+        "lo": 5.890764439232956,
+        "hi": 6.1129297082537235
+      },
+      "Flight": {
+        "puntual": 26.730384646119603,
+        "lo": 26.588827651208373,
+        "hi": 26.874796639360564
+      },
+      "Flexible": {
+        "puntual": 4.310204075217835,
+        "lo": 4.185142069420372,
+        "hi": 4.4354923671889726
+      },
+      "Departure": {
+        "puntual": 5.567001677639039,
+        "lo": 5.439477153390067,
+        "hi": 5.686848675116448
+      },
+      "flight_minus_price": {
+        "puntual": -12.893145569087103,
+        "lo": -13.11198004299821,
+        "hi": -12.685481968589917
+      }
+    },
+    "Low Cost": {
+      "Price": {
+        "puntual": 59.650226214614946,
+        "lo": 59.3388098857936,
+        "hi": 59.95609092141135
+      },
+      "Baggage": {
+        "puntual": 13.170350354078158,
+        "lo": 12.942465581614567,
+        "hi": 13.393217426456028
+      },
+      "Seat": {
+        "puntual": 2.588005315934706,
+        "lo": 2.400657842638693,
+        "hi": 2.7720831391574574
+      },
+      "Flight": {
+        "puntual": 20.31820445294258,
+        "lo": 20.067935171009573,
+        "hi": 20.564587303775454
+      },
+      "Flexible": {
+        "puntual": 1.9443571559823352,
+        "lo": 1.7385852308363352,
+        "hi": 2.157892460678566
+      },
+      "Departure": {
+        "puntual": 2.3288565064472886,
+        "lo": 2.1105943059579566,
+        "hi": 2.5370087981877125
+      },
+      "flight_minus_price": {
+        "puntual": -39.332021761672365,
+        "lo": -39.72747094273865,
+        "hi": -38.93186212907824
+      }
+    }
+  },
+  "bootstrap": {
+    "repeticiones": 2000,
+    "semilla": 42,
+    "unidad": "cliente"
+  }
+}

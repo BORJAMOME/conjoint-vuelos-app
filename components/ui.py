@@ -11,8 +11,8 @@ PALETTE = {
 
 _NAV_ITEMS = [
     ("contexto", "Contexto"), ("datos", "Datos"), ("exploracion", "Exploración"),
-    ("modelo", "Modelo"), ("explicabilidad", "Explicabilidad"), ("playground", "Playground"),
-    ("resultados", "Resultados"), ("decisiones", "Decisiones"),
+    ("modelo", "Modelo"), ("explicabilidad", "Explicabilidad"), ("segmentos", "Segmentos"),
+    ("playground", "Playground"), ("resultados", "Resultados"), ("decisiones", "Decisiones"),
 ]
 
 
@@ -115,6 +115,13 @@ def kpi_grid(items, cols: int = 4):
         )
     html.append("</div>")
     st.markdown("".join(html), unsafe_allow_html=True)
+
+
+def note(text: str, label: str = "Detalle técnico"):
+    """Nota pequeña para el segundo nivel de lectura: el detalle técnico que no
+    hace falta para seguir la historia, pero que respalda lo que se afirma."""
+    lab = f"<b>{label}.</b> " if label else ""
+    st.markdown(f'<p class="co-note">{lab}{text}</p>', unsafe_allow_html=True)
 
 
 def finding(text: str, tone: str = ""):
@@ -242,8 +249,26 @@ def decision_flow(insight: str, action: str, objective: str, metric: str):
     )
 
 
+def hypothesis_flow(title: str, insight: str, hypothesis: str, measure: str):
+    """Una decisión planteada como hipótesis, no como conclusión del modelo:
+    lo que dicen los datos → qué se podría probar → qué habría que medir."""
+    st.markdown(
+        f"""
+        <h3 class="co-h3">{title}</h3>
+        <div class="decision-flow three">
+          <div class="df-box"><span class="df-k">Insight</span><span class="df-v">{insight}</span></div>
+          <div class="df-arrow">&#8594;</div>
+          <div class="df-box"><span class="df-k">Hipótesis</span><span class="df-v">{hypothesis}</span></div>
+          <div class="df-arrow">&#8594;</div>
+          <div class="df-box df-metric"><span class="df-k">Qué medir</span><span class="df-v">{measure}</span></div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
 def stat_card(title: str, value: str, subtitle: str = "", color: str = None, paper: bool = False,
-              value_size: str = None, title_color: str = None):
+              value_size: str = None, title_color: str = None, min_height: str = None):
     """Tarjeta compacta título/valor grande/subtítulo — para badges de
     resultado, perfiles de categoría, o cualquier "ficha" repetida en un
     grid de comparación (un modelo, un segmento, un cluster). Sustituye
@@ -267,7 +292,8 @@ def stat_card(title: str, value: str, subtitle: str = "", color: str = None, pap
         else ' style="font-size:.72rem;"'
     subtitle_html = f'<div class="kpi-label">{subtitle}</div>' if subtitle else ""
     st.markdown(
-        f'<div class="{cls}" style="text-align:center; padding:1.1rem .8rem; height:100%;">'
+        f'<div class="{cls}" style="text-align:center; padding:1.1rem .8rem; height:100%;'
+        f'{f" min-height:{min_height};" if min_height else ""}">'
         f'<div class="kpi-label"{title_style}>{title}</div>'
         f'<div class="kpi-num"{value_style}>{value}</div>'
         f'{subtitle_html}</div>',

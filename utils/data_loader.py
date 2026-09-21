@@ -45,4 +45,5 @@ def load_csv(name: str, **kwargs) -> pd.DataFrame:
 
 
 def artifacts_ready() -> bool:
-    return (ARTIFACTS / "dataset_stats.json").exists() and (ARTIFACTS / "playground_model.json").exists()
+    needed = ("dataset_stats.json", "playground_model.json", "design_checks.json", "design_cards.csv", "card_ratings.csv")
+    return all((ARTIFACTS / name).exists() for name in needed)
