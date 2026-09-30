@@ -162,7 +162,7 @@ ed.beat(
     deck=[
         "Una aerolínea puede crear muchas combinaciones distintas cambiando precio, escalas, equipaje, asiento, "
         "flexibilidad u horario.",
-        "El problema no es crear esas combinaciones. Es saber <b>cuáles importan realmente al cliente</b>.",
+        "Crearlas es fácil. Lo difícil es saber <b>cuáles importan de verdad al cliente</b>.",
         "¿Pagaría más por un vuelo directo? ¿Cuánto le importa llevar equipaje incluido? ¿Prefiere ahorrar aunque "
         "tenga que hacer una escala? Y, sobre todo: <b>¿las respuestas son las mismas para todos?</b>",
     ],
@@ -261,8 +261,7 @@ ed.passage(
     "Otro puede darle un 8 porque es barato.",
     tight=True,
 )
-ed.insight("La valoración final puede ser la misma. <b>Lo que cambia es lo que hay detrás.</b> Y eso es lo que el "
-           "modelo tiene que descubrir.")
+ed.insight("La nota es la misma; <b>el motivo, no</b>. Separar esos motivos es el trabajo del modelo.")
 
 # ============================================================ 04 · CÓMO FUNCIONA ==
 ed.beat(
@@ -314,8 +313,8 @@ ed.metrics([
      f"{es(checks['robustez']['t_min_agrupado_por_cliente'], 0)})."),
 ])
 ed.insight(
-    "Pero saber que el modelo funciona no responde todavía a la pregunta más interesante: <b>¿qué características "
-    "hacen que un vuelo guste más o menos?</b> Y entonces entramos en las utilidades.",
+    "Queda la pregunta que de verdad interesa: <b>¿qué características hacen que un vuelo guste más o menos?</b> "
+    "Para eso están las utilidades.",
     aside="El R² se mide sobre los mismos datos con los que se ajustó el modelo: no hay conjunto de prueba. Como cada "
           f"cliente aporta {n_cards} valoraciones, la significación se comprobó con errores agrupados por cliente.",
 )
@@ -337,8 +336,8 @@ with ed.split("precio", "5-7") as (txt, viz):
     with txt:
         ed.insight(
             f"Subir el precio de 50 € a 100 € resta <b>{es(step_1, 2)}</b> puntos de utilidad. Pasar de 100 € a 150 € "
-            f"resta otros <b>{es(step_2, 2)}</b>: el segundo salto cuesta más del doble. La sensibilidad al precio no "
-            "es simplemente «cada euro importa lo mismo»: el modelo detecta un cambio claro a partir de los 100 €."
+            f"resta otros <b>{es(step_2, 2)}</b>: el segundo salto cuesta más del doble. No todos los euros pesan lo "
+            "mismo: a partir de 100 € la penalización se acelera."
         )
         ed.note(f"Pero ese es el patrón del cliente promedio. Por segmentos cambia: Low Cost ya pierde "
                 f"{es(lc_step1, 2)} puntos al pasar de 50 € a 100 €, mientras que Business pierde solo "
@@ -363,19 +362,19 @@ with ed.split("importancia", "7-5") as (viz, txt):
     with viz:
         st.plotly_chart(charts.importance_overall(imp_overall, ATTRIBUTE_LABELS), use_container_width=True, config=PLOT)
         ed.caption("FIG. 05", "Importancia relativa de cada atributo con todos los clientes juntos. En azul, los dos atributos que "
-                   "concentran casi toda la decisión.",
+                   "concentran más de dos tercios de la importancia.",
                    "Modelo entrenado en este proyecto")
     with txt:
         ed.insight(
             f"<b>{ATTRIBUTE_LABELS[top_attr]}</b> ({pct(imp_o[top_attr])}) y "
             f"<b>{ATTRIBUTE_LABELS[second_attr].lower()}</b> ({pct(imp_o[second_attr])}) concentran el "
-            f"<b>{pct(top_two, 0)}</b> de la importancia total. La selección de asiento y la flexibilidad tienen "
-            "mucho menos peso."
+            f"<b>{pct(top_two, 0)}</b> de la importancia total. El equipaje queda en tercer lugar "
+            f"({pct(imp_o['Baggage'])}); asiento, flexibilidad y horario apenas pesan."
         )
         ed.note("<b>Detalle técnico.</b> La importancia es relativa a los niveles que se probaron: el precio solo se "
                 "probó entre 50 € y 150 €, y con otro rango su peso sería distinto.")
-ed.insight("Pero aquí aparece una limitación importante de mirar solo el promedio: <b>el cliente promedio no "
-           "existe</b>. Cuando separo los resultados por segmento, la historia cambia.")
+ed.insight("El problema de mirar solo el promedio es que <b>el cliente promedio no existe</b>. Cuando separo "
+           "los resultados por segmento, la historia cambia.")
 
 # ============================================================ 07 · SEGMENTOS ==
 ed.beat(
@@ -392,7 +391,7 @@ seg_text = {
     "Business": (f"Para este segmento, volar directo aporta más valoración ({sgn(direct_biz)} puntos) que lo que "
                  f"resta encarecer el billete de 50 € a 150 € ({sgn(-price150_biz)})."
                  if direct_biz > price150_biz else "Las escalas pesan más que el precio."),
-    "Leisure": "Busca un equilibrio diferente entre coste y comodidad.",
+    "Leisure": "El precio va primero, pero las escalas siguen pesando. Es el perfil más cercano al promedio.",
     "Low Cost": "Aquí el precio domina claramente la valoración.",
 }
 seg_cards = []
@@ -407,8 +406,8 @@ for seg in SEGMENT_ORDER:
 with ed.figure("segmentos-cards"):
     ed.cards(seg_cards, count=3)
 ed.insight(
-    "No estamos ante tres clientes que simplemente puntúan los mismos vuelos de forma diferente. Son <b>tres formas "
-    "distintas de valorar</b> las características de un vuelo.",
+    "Entre segmentos cambia el <b>orden de prioridades</b>, no solo la nota media: cada uno valora las "
+    "características de un vuelo a su manera.",
     aside=(
         f"Intervalos de confianza del 95% por bootstrap de clientes ({miles(checks['bootstrap']['repeticiones'])} "
         f"repeticiones): la importancia de cada atributo varía menos de ±{es(ci_half, 1)} puntos, así que las "
@@ -523,15 +522,16 @@ ed.beat(
 )
 ed.band(
     "Lo que quedaría de todo esto",
-    'La conclusión no es que exista un atributo ganador. Es que <span class="accent">el valor de un atributo depende '
-    "de quién está tomando la decisión</span>.",
+    'Ningún atributo gana en todos los casos: <span class="accent">el valor de cada uno depende de quién '
+    "está tomando la decisión</span>.",
     "«No quería saber qué vuelo gusta más. Quería saber por qué gusta y si ese porqué cambia según el cliente.»",
     quote=True,
 )
 ed.subhead("En resumen")
 ed.metrics([
     ("Cliente promedio", pct(top_two, 0),
-     f"{ATTRIBUTE_LABELS[top_attr]} y {ATTRIBUTE_LABELS[second_attr].lower()} concentran casi toda la decisión."),
+     f"{ATTRIBUTE_LABELS[top_attr]} y {ATTRIBUTE_LABELS[second_attr].lower()} concentran más de dos tercios de la "
+     "importancia."),
     ("Business", pct(biz_flight), f"Prioriza las escalas, por encima del precio ({pct(biz_price)})."),
     ("Leisure", pct(imp_s[("Leisure", "Price")]),
      f"Da más peso al precio, pero mantiene las escalas como segundo factor ({pct(imp_s[('Leisure', 'Flight')])})."),
@@ -576,11 +576,11 @@ ed.insight("Estas no son decisiones que el modelo haya tomado. Son <b>hipótesis
 # ============================================================ 11 · LIMITACIONES ==
 ed.beat(
     "limitaciones", "11", "Limitaciones", "Lo que sabemos y lo que no sabemos",
-    deck="Un buen análisis también tiene que dejar claro dónde termina lo que sabemos.",
+    deck="Y dónde deja de servir este análisis.",
 )
 ed.cards([
     {"title": "Lo que el modelo sí puede hacer", "color": "var(--positive)", "points": [
-        "<b>Descomponer</b> una valoración global en el valor de cada atributo, con significancia estadística "
+        "<b>Descomponer</b> una valoración global en el valor de cada atributo, con significación estadística "
         "(también con errores agrupados por cliente).",
         f"<b>Simular vuelos que ningún cliente valoró</b>, sumando utilidades ya estimadas ({n_unrated} de las "
         f"{n_combos} combinaciones no se valoraron).",
@@ -592,8 +592,8 @@ ed.cards([
     {"title": "Lo que el modelo no puede hacer", "color": "var(--negative)", "points": [
         "Capturar <b>interacciones</b> entre atributos: si el precio importa menos cuando el vuelo es directo, este "
         "modelo no lo ve.",
-        "Garantizar que una <b>preferencia declarada</b> en una encuesta se traduzca en una compra real (declared vs. "
-        "revealed preference).",
+        "Garantizar que una <b>preferencia declarada</b> en una encuesta se traduzca en una compra real (preferencia "
+        "declarada frente a revelada).",
         "Generalizar a atributos o niveles que nunca se incluyeron en el diseño (p. ej. un precio de 200 €).",
         f"Respetar el <b>techo de la escala</b>: es un modelo lineal y puede calcular valoraciones por encima de "
         f"{scale_max:.0f} (el {es(rating_info['pct_en_el_maximo'], 0)}% de las reales es un {scale_max:.0f}).",
@@ -622,8 +622,8 @@ ed.beat(
         f"todos. Para Business, las escalas pesan más que el precio. Para Leisure, el precio ocupa el primer lugar. "
         f"Para Low Cost, el precio concentra casi el {pct(lc_price, 0)} de la importancia.",
         "El análisis no dice qué vuelo debe vender una aerolínea. Dice algo más útil: <b>qué está valorando cada tipo "
-        "de cliente y dónde cambia esa valoración</b>. El siguiente paso ya no sería preguntar qué prefieren. "
-        "<b>Sería probarlo en el mercado.</b>",
+        "de cliente y dónde cambia esa valoración</b>. El siguiente paso sería <b>probarlo en el mercado</b>, no "
+        "volver a preguntar.",
     ],
 )
 ed.colophon("Borja Mora Méndez", [

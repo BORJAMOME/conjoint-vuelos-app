@@ -2,9 +2,9 @@
 
 **¿Qué hace que un vuelo merezca la pena para cada cliente?**
 
-Una aplicación interactiva en la que descompuse la valoración de un vuelo en el valor exacto que aporta
+Una aplicación interactiva en la que descompuse la valoración de un vuelo en lo que aporta
 cada una de sus características (precio, equipaje, asiento, escalas, flexibilidad y horario) y que
-muestra cómo esa prioridad cambia por completo según el tipo de cliente. Deja diseñar un vuelo
+muestra cómo cambian las prioridades según el tipo de cliente. Deja diseñar un vuelo
 hipotético y comparar, en vivo, cómo lo valoraría cada segmento.
 
 No hace falta saber nada de estadística para seguirla: empieza por el problema, explica el análisis
