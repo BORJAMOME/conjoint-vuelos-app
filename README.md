@@ -49,56 +49,6 @@ Calculé todos los números que aparecen en la app una vez y los guardé como da
 todos los clientes, calidad del diseño, robustez con errores agrupados por cliente, techo de la escala,
 intervalos de confianza por segmento). Nada está escrito a mano.
 
-## Ejecutarla en tu ordenador
-
-```bash
-pip install -r requirements.txt
-streamlit run app.py
-```
-
-Los resultados del modelo ya vienen calculados en `model/artifacts/`, así que no hace falta reentrenar
-nada para verla funcionar.
-
-Solo si cambias el dataset (`data/Conjoint_Flight.xlsx`) necesitas regenerarlos:
-
-```bash
-python model/train.py                  # tarda unos segundos: son 4 regresiones OLS sobre datos tabulares
-python model/export_design_checks.py   # comprobaciones del diseño; no cambia el modelo
-```
-
-<details>
-<summary>Estructura del proyecto, para quien quiera curiosear el código</summary>
-
-```
-app.py                    la aplicación — toda la narrativa, sección a sección
-components/
-  editorial.py              sistema editorial: un componente por función narrativa (lede, beat, figure…)
-  charts.py                gráficos, con la paleta de colores del proyecto
-utils/
-  data_loader.py            carga de artefactos (con cache de Streamlit)
-  conjoint.py                predice el rating de un vuelo hipotético sumando utilidades parciales
-model/
-  train.py                    ajusta las 4 regresiones OLS (global + 3 segmentos), calcula todo
-  export_design_checks.py      comprobaciones del diseño y de la robustez (no toca el modelo)
-  artifacts/                   resultados ya calculados (part-worths, importancia, R²...)
-data/                      el dataset original
-assets/editorial.css       sistema de composición editorial (rejilla, niveles de ancho, ritmo, tokens) — reutilizable
-assets/style.css           identidad de este proyecto: paleta propia (negro, azul, rojo, amarillo y gris) y tipografías
-```
-
-Hice que el Playground no dependiera de ningún pickle ni de scikit-learn: un modelo conjoint es una
-suma de utilidades parciales, así que predecir un rating es sumar el intercepto y la utilidad del nivel
-elegido en cada atributo (números pequeños guardados en un JSON, sin fragilidad entre entornos).
-</details>
-
----
-
-### Sistema editorial (reutilizable en otros proyectos de ML)
-
-`assets/editorial.css` convierte el contenedor de Streamlit en una rejilla con cinco niveles de ancho y una escala
-de espacio y de tipografía editoriales; `components/editorial.py` expone un componente por función narrativa.
-Es el mismo sistema que usan el resto de proyectos de ML del portfolio. Requiere `streamlit==1.58.0` (usa
-`st.container(key=...)` y el DOM de esa versión).
 
 ## Licencia
 
