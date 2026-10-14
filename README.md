@@ -1,4 +1,4 @@
-# Análisis Conjoint — Preferencias de Vuelos
+# Análisis Conjoint - Preferencias de Vuelos
 
 **¿Qué hace que un vuelo merezca la pena para cada cliente?**
 
