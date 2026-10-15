@@ -1,5 +1,5 @@
 """
-Análisis Conjoint — Preferencias de Vuelos
+Análisis Conjoint: Preferencias de Vuelos
 Reportaje digital de datos: qué valoran realmente los clientes de una aerolínea en cada característica
 de un vuelo, y cómo cambia esa prioridad según quién vuela.
 

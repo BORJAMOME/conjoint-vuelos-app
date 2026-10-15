@@ -1,6 +1,6 @@
 """Predice el rating de un vuelo hipotético en vivo. Un modelo conjoint
 es una suma de utilidades parciales: predecir es sumar el intercepto y
-la utilidad de cada nivel elegido — no hace falta ningún pickle."""
+la utilidad de cada nivel elegido: no hace falta ningún pickle."""
 
 
 def predict_rating(choice: dict, atributos: list, intercept: float, partworths: dict) -> float:

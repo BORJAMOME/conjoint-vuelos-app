@@ -27,15 +27,15 @@ tres lógicas de cliente distintas: para **Business**, volar directo pesa más q
 
 ## Qué te vas a encontrar al recorrerla
 
-1. **El problema** — saber qué características importan de verdad al cliente, y si importan igual a todos
-2. **Los datos** — 1.000 clientes, 24 tarjetas de un diseño fraccionado, 24.000 valoraciones
-3. **Antes de modelar** — cómo se reparten los ratings y en qué se diferencian los segmentos
-4. **Cómo funciona un conjoint** — de la valoración global al valor de cada atributo, sin jerga
-5. **El modelo** — R²=0,747, utilidades parciales de cada atributo, y por qué el precio no es lineal
-6. **Explicabilidad** — importancia relativa de cada atributo para el cliente promedio
-7. **Segmentos** — tres formas distintas de valorar el mismo vuelo
-8. **Playground** — diseña un vuelo y compara en directo cómo lo valora cada segmento (avisa si el vuelo se valoró de verdad o es una estimación, y si el modelo se sale de la escala)
-9. **Resultado, decisiones y límites** — hipótesis de negocio (no conclusiones del modelo) y dónde termina lo que sabemos
+1. **El problema**: saber qué características importan de verdad al cliente, y si importan igual a todos
+2. **Los datos**: 1.000 clientes, 24 tarjetas de un diseño fraccionado, 24.000 valoraciones
+3. **Antes de modelar**: cómo se reparten los ratings y en qué se diferencian los segmentos
+4. **Cómo funciona un conjoint**: de la valoración global al valor de cada atributo, sin jerga
+5. **El modelo**: R²=0,747, utilidades parciales de cada atributo, y por qué el precio no es lineal
+6. **Explicabilidad**: importancia relativa de cada atributo para el cliente promedio
+7. **Segmentos**: tres formas distintas de valorar el mismo vuelo
+8. **Playground**: diseña un vuelo y compara en directo cómo lo valora cada segmento (avisa si el vuelo se valoró de verdad o es una estimación, y si el modelo se sale de la escala)
+9. **Resultado, decisiones y límites**: hipótesis de negocio (no conclusiones del modelo) y dónde termina lo que sabemos
 
 ## Cómo está hecho
 
