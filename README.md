@@ -2,7 +2,7 @@
 
 En este proyecto he analizado cómo influye cada característica de un vuelo (precio, equipaje, asiento, escalas, flexibilidad y horario) en su valoración, y cómo cambian las preferencias según el tipo de cliente
 
-**[➡ Abrir la app](https://preferencias-vuelos.streamlit.app/)** 
+**[➡ Abrir el proyecto](https://preferencias-vuelos.streamlit.app/)** 
 
 ## De qué trata
 
