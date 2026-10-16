@@ -1,31 +1,16 @@
-# Análisis Conjoint - Preferencias de Vuelos
+# ¿Qué hace que un vuelo merezca la pena para cada cliente?**
 
-**¿Qué hace que un vuelo merezca la pena para cada cliente?**
+En este proyecto he analizado cómo influye cada característica de un vuelo (precio, equipaje, asiento, escalas, flexibilidad y horario) en su valoración, y cómo cambian las preferencias según el tipo de cliente
 
-Una aplicación interactiva en la que descompuse la valoración de un vuelo en lo que aporta
-cada una de sus características (precio, equipaje, asiento, escalas, flexibilidad y horario) y que
-muestra cómo cambian las prioridades según el tipo de cliente. Deja diseñar un vuelo
-hipotético y comparar, en vivo, cómo lo valoraría cada segmento.
+**[➡ Abrir la app](https://preferencias-vuelos.streamlit.app/)** 
 
-No hace falta saber nada de estadística para seguirla: empieza por el problema, explica el análisis
-conjoint en lenguaje llano, y termina dejándote construir tu propio vuelo para ver a quién convence.
+## De qué trata
 
-## Ver la app
+1.000 clientes valoraron del 1 al 10 un total de 24 combinaciones de vuelo, diseñadas para representar 6 atributos. De las 144 combinaciones posibles, solo se evaluaron 24. Mediante una regresión lineal (análisis conjoint), descompuse las 24.000 valoraciones para medir cuánto aporta cada característica y cada uno de sus niveles a la valoración final (part-worths).
 
-🔗 **[Abrir la app](https://preferencias-vuelos.streamlit.app/)** 
+**El resultado:** el precio y las escalas representan el 69% de la importancia media en la elección de un vuelo, pero las preferencias varían según el tipo de cliente. Para Business, volar directo importa más que el precio (37,9% frente a 24,4%), mientras que para Low Cost, el precio concentra el 59,7% de la importancia. Los estrechos intervalos de confianza, calculados mediante bootstrap de clientes, respaldan la estabilidad de estas diferencias.
 
-## De qué trata, en dos frases
-
-1.000 clientes de una aerolínea valoraron, del 1 al 10, las mismas 24 combinaciones de vuelo (un diseño
-fraccionado, casi ortogonal, sobre 6 atributos: 120 de las 144 combinaciones posibles nunca se valoraron). Con una regresión lineal (análisis conjoint) descompuse esas 24.000
-valoraciones en la contribución de cada nivel de cada atributo: sus *part-worths*.
-
-**El resultado:** el precio y las escalas concentran el 69% de la decisión media, pero esa media esconde
-tres lógicas de cliente distintas: para **Business**, volar directo pesa más que el precio (37,9% frente a
-24,4%); para **Low Cost**, el precio concentra el 59,7% de su importancia. Los intervalos de confianza
-(bootstrap de clientes) son estrechos: no es ruido de muestreo.
-
-## Qué te vas a encontrar al recorrerla
+## Qué te encontrarás en este proyecto
 
 1. **El problema**: saber qué características importan de verdad al cliente, y si importan igual a todos
 2. **Los datos**: 1.000 clientes, 24 tarjetas de un diseño fraccionado, 24.000 valoraciones
@@ -44,14 +29,5 @@ Python + [Streamlit](https://streamlit.io) para la aplicación, y
 notebook, está en el
 [repositorio de portfolio](https://github.com/BORJAMOME/Data-Analytics-Portfolio/tree/main/03-Machine-Learning/01-supervisado/regresion/02-regresion-lineal-multiple/03-preferencias-vuelos-conjoint).
 
-Calculé todos los números que aparecen en la app una vez y los guardé como datos: el modelo en
-`model/train.py` y las comprobaciones del experimento en `model/export_design_checks.py` (mismo diseño para
-todos los clientes, calidad del diseño, robustez con errores agrupados por cliente, techo de la escala,
-intervalos de confianza por segmento). Nada está escrito a mano.
-
-
-## Licencia
-
-El código está bajo licencia [MIT](LICENSE). Los datasets de `data/` pertenecen a sus fuentes originales y no están incluidos en esta licencia.
 
 **Autor:** Borja Mora Méndez · [LinkedIn](https://www.linkedin.com/in/borjamoramendez/) · [GitHub](https://github.com/BORJAMOME)
